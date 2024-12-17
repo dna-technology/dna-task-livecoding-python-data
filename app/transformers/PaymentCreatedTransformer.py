@@ -1,4 +1,4 @@
-from tranformers.AbstractTransformer import AbstractTransformer
+from transformers.AbstractTransformer import AbstractTransformer
 
 
 class PaymentCreatedTransformer(AbstractTransformer):

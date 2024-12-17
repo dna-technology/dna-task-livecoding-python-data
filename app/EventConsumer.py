@@ -1,7 +1,7 @@
 import six
 import sys
 
-from tranformers.AbstractTransformer import AbstractTransformer
+from transformers.AbstractTransformer import AbstractTransformer
 
 
 if sys.version_info >= (3, 12, 0):
