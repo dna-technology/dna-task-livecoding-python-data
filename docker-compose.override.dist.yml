@@ -1,0 +1,6 @@
+services:
+  app:
+    build:
+      args:
+        GID: 1000 # insert your group ID to avoid permission issues
+        UID: 1000 # insert your user ID to avoid permission issues

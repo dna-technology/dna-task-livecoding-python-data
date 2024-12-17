@@ -1,4 +1,5 @@
 app/.idea
 app/.venv
+docker-compose.override.yml
 *.pyc
 *.db
