@@ -1,8 +1,7 @@
 import six
 import sys
 
-from transformers.AbstractTransformer import AbstractTransformer
-
+from transformers.abstract_transformer import AbstractTransformer
 
 if sys.version_info >= (3, 12, 0):
     sys.modules['kafka.vendor.six.moves'] = six.moves
@@ -29,4 +28,4 @@ class EventConsumer:
             key = message.key.decode("utf-8") if message.key else None
             value = message.value.decode("utf-8")
 
-            self.transformer.transform(key, value)
+            self.transformer.transform(value)
