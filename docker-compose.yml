@@ -3,8 +3,16 @@ version: '3'
 services:
   kafka:
     image: apache/kafka:3.9.0
+    healthcheck:
+      test: ["CMD", "opt/kafka/bin/kafka-topics.sh", "--list", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
 
   app:
+    depends_on:
+      kafka:
+        condition: service_healthy
     build:
       context: .
     volumes:
