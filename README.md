@@ -11,5 +11,5 @@ docker-compose up
 
 Then you should be able to run tests with simple command
 ```sh
-docker-compose exec app python -m pytest
+docker-compose exec app python -u -m pytest -s
 ```

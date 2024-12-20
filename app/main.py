@@ -1,17 +1,20 @@
-#! /usr/local/bin/python
+#! /usr/local/bin/python -u
 import os
 import threading
 
-from database import Database
+from file_database import FileDatabase
 from event_consumer import EventConsumer
 from transformers.payment_updated_transformer import PaymentUpdatedTransformer
 
-database = Database("db/db.db")
-
 kafkaConnectionString="{}:{}".format(os.getenv("KAFKA_HOST", "localhost"), os.getenv("KAFKA_PORT", "9092"))
-paymentCreatedConsumer = EventConsumer("payments.updated", kafkaConnectionString, "payment-consumers", PaymentUpdatedTransformer(database))
 
-thread1 = threading.Thread(target=paymentCreatedConsumer.listen)
+def create_and_run_consumer():
+    database = FileDatabase("db/db.db")
+    paymentCreatedConsumer = EventConsumer("payments.update", kafkaConnectionString, "payment-consumers", PaymentUpdatedTransformer(database))
+    paymentCreatedConsumer.listen()
+
+
+thread1 = threading.Thread(target=create_and_run_consumer)
 thread1.start()
 
 thread1.join()

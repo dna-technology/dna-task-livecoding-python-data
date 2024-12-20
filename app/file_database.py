@@ -1,15 +1,19 @@
 import sqlite3
+from sqlite3 import Connection
 
-class Database:
+from abstract_database import AbstractDatabase
+
+
+class FileDatabase(AbstractDatabase):
     def __init__(self, db_path):
         self.db_path = db_path
         self.conn = self._connect()
-        self.create_tables()
+        self._create_tables()
 
     def _connect(self):
         return sqlite3.connect(self.db_path)
 
-    def create_tables(self):
+    def _create_tables(self):
         cursor = self.conn.cursor()
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS payments (
@@ -23,5 +27,5 @@ class Database:
         """)
         self.conn.commit()
 
-    def get_connection(self):
+    def get_connection(self) -> Connection:
         return self.conn
